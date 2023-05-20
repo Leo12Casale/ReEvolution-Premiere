@@ -1,8 +1,8 @@
 package com.reevolutionpremiere.ReEvolutionPremiere.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ComercioRepository extends CrudRepository<Comercio,Integer> {
+public interface ComercioRepository extends JpaRepository<Comercio,Integer> {
 }

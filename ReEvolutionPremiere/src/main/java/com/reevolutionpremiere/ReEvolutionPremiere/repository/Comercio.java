@@ -1,5 +1,7 @@
 package com.reevolutionpremiere.ReEvolutionPremiere.repository;
 
+
+
 import javax.persistence.*;
 
 @Entity
@@ -57,6 +59,26 @@ public class Comercio {
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="id_categoria", referencedColumnName = "id_categoria")
     private Categoria categoria;
+
+    public Comercio(int codigoComercio, String razonSocial, String nombreFantasia, String CUIT, String condicionIVA, Float importeConsumos, Float importeComisiones, int diaCobro, String telefono, String nombreDuenio, String email, String direccion, String localidad, String provincia, int codigoPostal, String observaciones, Categoria categoria) {
+        this.codigoComercio = codigoComercio;
+        this.razonSocial = razonSocial;
+        this.nombreFantasia = nombreFantasia;
+        this.CUIT = CUIT;
+        this.condicionIVA = condicionIVA;
+        this.importeConsumos = importeConsumos;
+        this.importeComisiones = importeComisiones;
+        this.diaCobro = diaCobro;
+        this.telefono = telefono;
+        this.nombreDuenio = nombreDuenio;
+        this.email = email;
+        this.direccion = direccion;
+        this.localidad = localidad;
+        this.provincia = provincia;
+        this.codigoPostal = codigoPostal;
+        this.observaciones = observaciones;
+        this.categoria = categoria;
+    }
 
     public Comercio() {
     }
