@@ -1,7 +1,5 @@
-package com.reevolutionpremiere.ReEvolutionPremiere.service;
+package com.py.reevolutionpremiere;
 
-import com.reevolutionpremiere.ReEvolutionPremiere.repository.Comercio;
-import com.reevolutionpremiere.ReEvolutionPremiere.repository.ComercioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +7,6 @@ import java.util.List;
 
 @Service
 public class ComercioService {
-
     private final ComercioRepository comercioRepository;
 
     @Autowired
@@ -17,7 +14,7 @@ public class ComercioService {
         this.comercioRepository = comercioRepository;
     }
 
-    public List<Comercio> getComercios() {
+    public List<ComercioEntidad> getComercios(){
         return comercioRepository.findAll();
     }
 }

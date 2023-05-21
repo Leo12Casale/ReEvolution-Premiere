@@ -1,12 +1,10 @@
-package com.reevolutionpremiere.ReEvolutionPremiere.repository;
+package com.py.reevolutionpremiere;
 
-
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="a_comercio")
-public class Comercio {
+@Table(name = "a_comercio")
+public class ComercioEntidad {
     @Id
     @Column(name = "codigo_comercio")
     private int codigoComercio;
@@ -56,11 +54,11 @@ public class Comercio {
     @Column(name = "observaciones")
     private String observaciones;
     //private JSONObject comisionesPorCuota;
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="id_categoria", referencedColumnName = "id_categoria")
-    private Categoria categoria;
+//    @OneToOne(cascade = {CascadeType.ALL})
+//    @JoinColumn(name="id_categoria", referencedColumnName = "id_categoria")
+//    private Categoria categoria;
 
-    public Comercio(int codigoComercio, String razonSocial, String nombreFantasia, String CUIT, String condicionIVA, Float importeConsumos, Float importeComisiones, int diaCobro, String telefono, String nombreDuenio, String email, String direccion, String localidad, String provincia, int codigoPostal, String observaciones, Categoria categoria) {
+    public ComercioEntidad(int codigoComercio, String razonSocial, String nombreFantasia, String CUIT, String condicionIVA, Float importeConsumos, Float importeComisiones, int diaCobro, String telefono, String nombreDuenio, String email, String direccion, String localidad, String provincia, int codigoPostal, String observaciones) {
         this.codigoComercio = codigoComercio;
         this.razonSocial = razonSocial;
         this.nombreFantasia = nombreFantasia;
@@ -77,10 +75,10 @@ public class Comercio {
         this.provincia = provincia;
         this.codigoPostal = codigoPostal;
         this.observaciones = observaciones;
-        this.categoria = categoria;
+        //this.categoria = categoria;
     }
 
-    public Comercio() {
+    public ComercioEntidad() {
     }
 
     public int getCodigoComercio() {
@@ -211,11 +209,11 @@ public class Comercio {
         this.observaciones = observaciones;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
+//    public Categoria getCategoria() {
+//        return categoria;
+//    }
+//
+//    public void setCategoria(Categoria categoria) {
+//        this.categoria = categoria;
+//    }
 }
