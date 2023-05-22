@@ -1,4 +1,4 @@
-package com.py.reevolutionpremiere;
+package com.py.reevolutionpremiere.entities;
 
 import jakarta.persistence.*;
 

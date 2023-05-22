@@ -1,5 +1,7 @@
-package com.py.reevolutionpremiere;
+package com.py.reevolutionpremiere.services;
 
+import com.py.reevolutionpremiere.entities.ComercioEntidad;
+import com.py.reevolutionpremiere.entities.ComercioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

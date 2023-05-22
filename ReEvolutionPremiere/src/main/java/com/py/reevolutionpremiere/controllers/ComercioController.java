@@ -1,12 +1,9 @@
-package com.py.reevolutionpremiere;
+package com.py.reevolutionpremiere.controllers;
 
-import com.py.reevolutionpremiere.ComercioEntidad;
-import com.py.reevolutionpremiere.ComercioService;
+import com.py.reevolutionpremiere.entities.ComercioEntidad;
+import com.py.reevolutionpremiere.services.ComercioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
