@@ -20,7 +20,7 @@ public class ComercioService {
         return comercioRepository.findAll();
     }
 
-    public ComercioEntidad setComercios(ComercioEntidad comercio) { return comercioRepository.save(comercio) ;}
+    public void setComercios(ComercioEntidad comercio) {  comercioRepository.save(comercio) ;}
 
     public ComercioEntidad encontarComercio(ComercioEntidad comercio){
        return comercioRepository.findById(comercio.getCodigoComercio()).orElseThrow();

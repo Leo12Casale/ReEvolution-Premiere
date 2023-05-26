@@ -28,10 +28,9 @@ public class ComercioController {
         return comercioService.encontarComercio(comercio);
     }
 
-    @PostMapping("/guardar")
-    public @ResponseBody String crearComercio(ComercioEntidad comercio) {
+    @PostMapping()
+    public @ResponseBody void nuevoComercio(ComercioEntidad comercio) {
         comercioService.setComercios(comercio);
-        String respuesta = "El comercio se creó correctamente";
-        return respuesta;
+
     }
 }
