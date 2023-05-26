@@ -3,6 +3,7 @@ package com.py.reevolutionpremiere.controllers;
 import com.py.reevolutionpremiere.entities.ComercioEntidad;
 import com.py.reevolutionpremiere.services.ComercioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,5 +21,17 @@ public class ComercioController {
     @GetMapping()
     public @ResponseBody List<ComercioEntidad> getAllUsers(){
         return comercioService.getComercios();
+    }
+
+    @GetMapping("/{codigoComercio}")
+    public @ResponseBody ComercioEntidad encontrarbyId(ComercioEntidad comercio){
+        return comercioService.encontarComercio(comercio);
+    }
+
+    @PostMapping("/guardar")
+    public @ResponseBody String crearComercio(ComercioEntidad comercio) {
+        comercioService.setComercios(comercio);
+        String respuesta = "El comercio se creó correctamente";
+        return respuesta;
     }
 }

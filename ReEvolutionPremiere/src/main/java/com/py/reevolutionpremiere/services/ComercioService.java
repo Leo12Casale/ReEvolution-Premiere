@@ -19,4 +19,10 @@ public class ComercioService {
     public List<ComercioEntidad> getComercios(){
         return comercioRepository.findAll();
     }
+
+    public ComercioEntidad setComercios(ComercioEntidad comercio) { return comercioRepository.save(comercio) ;}
+
+    public ComercioEntidad encontarComercio(ComercioEntidad comercio){
+       return comercioRepository.findById(comercio.getCodigoComercio()).orElseThrow();
+    }
 }

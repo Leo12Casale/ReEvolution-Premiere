@@ -9,7 +9,7 @@ public class ComercioEntidad {
     @Column(name = "codigo_comercio")
     private int codigoComercio;
     @Basic
-    @Column(name = "razon_sociañ")
+    @Column(name = "razon_social")
     private String razonSocial;
     @Basic
     @Column(name = "nombre_fantasia")
