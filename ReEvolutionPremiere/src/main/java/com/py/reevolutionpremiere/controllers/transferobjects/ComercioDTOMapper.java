@@ -26,11 +26,24 @@ public class ComercioDTOMapper implements Function<ComercioEntidad, ComercioDTO>
                 comercioEntidad.getProvincia(),
                 comercioEntidad.getObservaciones(),
                 comercioEntidad.getComisionesPorCuota().toString(),
-                comercioEntidad.getCategoriaComercioByIdCategoria().getNombreCategoria(),
-                comercioEntidad.getComercioDueñoByIdDueño().getNombre(),
-                comercioEntidad.getComercioDueñoByIdDueño().getApellido(),
-                comercioEntidad.getComercioDueñoByIdDueño().getTelefono(),
-                comercioEntidad.getComercioDueñoByIdDueño().getEmail()
+                new ComercioCategoriaDTO(
+                        comercioEntidad.getCategoriaComercioByIdCategoria().getNombreCategoria()
+                ),
+                comercioEntidad.getComercioDueñoByIdDueño() == null ? null :
+                    new ComercioDueñoDTO(
+                            comercioEntidad.getComercioDueñoByIdDueño().getNombre(),
+                            comercioEntidad.getComercioDueñoByIdDueño().getApellido(),
+                            comercioEntidad.getComercioDueñoByIdDueño().getEmail(),
+                            comercioEntidad.getComercioDueñoByIdDueño().getTelefono()
+                ),
+                comercioEntidad.getComercioRepresentanteByIdRepresentante() == null ? null :
+                         new ComercioRepresentanteDTO(
+                                 comercioEntidad.getComercioRepresentanteByIdRepresentante().getNombre(),
+                                 comercioEntidad.getComercioRepresentanteByIdRepresentante().getApellido(),
+                                 comercioEntidad.getComercioRepresentanteByIdRepresentante().getEmail(),
+                                 comercioEntidad.getComercioRepresentanteByIdRepresentante().getTelefono(),
+                                 comercioEntidad.getComercioRepresentanteByIdRepresentante().getPuesto()
+                         )
         );
     }
 }
