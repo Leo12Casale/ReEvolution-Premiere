@@ -1,10 +1,12 @@
 package com.py.reevolutionpremiere.controllers;
 
+import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTO;
+import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTOMapper;
 import com.py.reevolutionpremiere.services.ComercioService;
-import com.py.reevolutionpremiere.transferobjects.ComercioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController
@@ -15,6 +17,7 @@ public class ComercioController {
     @Autowired
     public ComercioController(ComercioService comercioService) {
         this.comercioService = comercioService;
+
     }
 
     @GetMapping()
@@ -23,13 +26,14 @@ public class ComercioController {
     }
 
     @GetMapping("/{codigoComercio}")
-    public ComercioDTO encontrarbyId(@PathVariable Integer codigoComercio) {
-        ComercioDTO comercioDTO = comercioService.encontarComercio(codigoComercio);
-        return comercioDTO;
+    public ComercioDTO getComercioById(@PathVariable Integer codigoComercio) {
+        if(comercioService.getComercioById(codigoComercio).isPresent())
+            return comercioService.getComercioById(codigoComercio).get();
+        return null;
     }
 
     @PostMapping()
-    public void nuevoComercio(@RequestBody ComercioDTO comercioDTO) {
-        comercioService.setComercios(comercioDTO);
+    public void newComercio(@RequestBody ComercioDTO comercioDTO) {
+        comercioService.newComercio(comercioDTO);
     }
 }
