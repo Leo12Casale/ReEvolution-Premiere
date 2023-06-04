@@ -1,14 +1,14 @@
 package com.py.reevolutionpremiere.controllers.transferobjects;
 
 
-import com.py.reevolutionpremiere.entities.ComercioDueñoEntidad;
+import java.util.Map;
 
 public record ComercioDTO(
         Integer codigoComercio,
         String razonSocial,
         String nombreFantasia,
         String cuit,
-        String condicionIVA,
+        String condicionIva,
         Double importeConsumos,
         Double importeComisiones,
         Integer diaCobro,
@@ -17,9 +17,10 @@ public record ComercioDTO(
         String localidad,
         String email,
         String provincia,
+        Integer codigoPostal,
         String observaciones,
-        String comisiones,
-        ComercioCategoriaDTO categoria,
+        Map<Integer, Double> comisiones,
+        String categoria,
         ComercioDueñoDTO dueño,
         ComercioRepresentanteDTO representante
 ) {

@@ -1,5 +1,6 @@
 package com.py.reevolutionpremiere.controllers.transferobjects;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.py.reevolutionpremiere.entities.ComercioEntidad;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +25,10 @@ public class ComercioDTOMapper implements Function<ComercioEntidad, ComercioDTO>
                 comercioEntidad.getDireccion(),
                 comercioEntidad.getLocalidad(),
                 comercioEntidad.getProvincia(),
+                comercioEntidad.getCodigoPostal(),
                 comercioEntidad.getObservaciones(),
-                comercioEntidad.getComisionesPorCuota().toString(),
-                new ComercioCategoriaDTO(
-                        comercioEntidad.getCategoriaComercioByIdCategoria().getNombreCategoria()
-                ),
+                comercioEntidad.getComisionesPorCuota(),
+                comercioEntidad.getCategoriaComercioByIdCategoria().getNombreCategoria(),
                 comercioEntidad.getComercioDueñoByIdDueño() == null ? null :
                     new ComercioDueñoDTO(
                             comercioEntidad.getComercioDueñoByIdDueño().getNombre(),

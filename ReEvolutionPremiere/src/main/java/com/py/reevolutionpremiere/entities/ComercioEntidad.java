@@ -1,11 +1,15 @@
 package com.py.reevolutionpremiere.entities;
 
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +17,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "a_comercio")
 public class ComercioEntidad {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "codigo_comercio", nullable = false)
     private Integer codigoComercio;
@@ -62,17 +66,18 @@ public class ComercioEntidad {
     @Basic
     @Column(name = "borrado", nullable = false)
     private Boolean borrado;
+
+    @Type(JsonType.class)
+    @Column(name = "comisiones_por_cuota", columnDefinition = "json")
+    private Map<Integer, Double> comisionesPorCuota = new HashMap<>();
     @Basic
-    @Column(name = "comisiones_por_cuota", nullable = false)
-    private Object comisionesPorCuota;
-    @Basic
-    @Column(name = "id_categoria", nullable = false, insertable=false, updatable=false)
+    @Column(name = "id_categoria", nullable = false, insertable = false, updatable = false)
     private Integer idCategoria;
     @Basic
-    @Column(name = "id_dueño", nullable = false, insertable=false, updatable=false)
+    @Column(name = "id_dueño", nullable = false, insertable = false, updatable = false)
     private Integer idDueño;
     @Basic
-    @Column(name = "id_representante", nullable = true, insertable=false, updatable=false)
+    @Column(name = "id_representante", nullable = true, insertable = false, updatable = false)
     private Integer idRepresentante;
     @ManyToOne
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", nullable = false)
