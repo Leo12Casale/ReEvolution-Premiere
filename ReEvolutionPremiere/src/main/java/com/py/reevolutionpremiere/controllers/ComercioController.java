@@ -36,4 +36,14 @@ public class ComercioController {
     public void newComercio(@RequestBody ComercioDTO comercioDTO) {
         comercioService.newComercio(comercioDTO);
     }
+    @PatchMapping("/{codigoComercio}")
+    public void updateComercio(@PathVariable Integer codigoComercio, @RequestBody ComercioDTO comercioDTO){
+        comercioService.getComercioById(codigoComercio);
+        comercioService.modificarComercio(comercioDTO);
+
+    }
+    /*@DeleteMapping ("/{codigoComercio}")
+    public void deleteComercio(@PathVariable Integer codigoComercio){
+        comercioService.deleteComercioById(codigoComercio);
+    }*/
 }

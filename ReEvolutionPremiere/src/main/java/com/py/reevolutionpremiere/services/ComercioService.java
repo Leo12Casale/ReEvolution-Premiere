@@ -110,4 +110,10 @@ public class ComercioService {
         );
         comercioRepository.save(comercioEntidad);
     }
+
+    public void modificarComercio(ComercioDTO comercioDTO){
+        newComercio(comercioDTO);
+    }
+
+
 }

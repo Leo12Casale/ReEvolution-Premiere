@@ -80,13 +80,13 @@ public class ComercioEntidad {
     @Column(name = "id_representante", nullable = true, insertable = false, updatable = false)
     private Integer idRepresentante;
     @ManyToOne
-    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", nullable = false)
+    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", nullable = false,updatable = false)
     private ComercioCategoriaEntidad categoriaComercioByIdCategoria;
     @ManyToOne
-    @JoinColumn(name = "id_dueño", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "id_dueño", referencedColumnName = "ID", nullable = false, updatable = false)
     private ComercioDueñoEntidad comercioDueñoByIdDueño;
     @ManyToOne
-    @JoinColumn(name = "id_representante", referencedColumnName = "ID")
+    @JoinColumn(name = "id_representante", referencedColumnName = "ID", updatable = false)
     private ComercioRepresentanteEntidad comercioRepresentanteByIdRepresentante;
     @OneToMany(mappedBy = "comercioByCodigoComercio")
     private Collection<CuponEntidad> cuponsByCodigoComercio;
