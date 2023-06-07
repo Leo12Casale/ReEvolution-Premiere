@@ -66,7 +66,6 @@ public class ComercioEntidad {
     @Basic
     @Column(name = "borrado", nullable = false)
     private Boolean borrado;
-
     @Type(JsonType.class)
     @Column(name = "comisiones_por_cuota", columnDefinition = "json")
     private Map<Integer, Double> comisionesPorCuota = new HashMap<>();

@@ -2,6 +2,7 @@ package com.py.reevolutionpremiere.controllers;
 
 import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTO;
 import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTOMapper;
+import com.py.reevolutionpremiere.entities.ComercioEntidad;
 import com.py.reevolutionpremiere.services.ComercioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,7 @@ public class ComercioController {
 
     @Autowired
     public ComercioController(ComercioService comercioService) {
-        this.comercioService = comercioService;
-
-    }
+        this.comercioService = comercioService;}
 
     @GetMapping()
     public List<ComercioDTO> getAllUsers() {
@@ -42,8 +41,8 @@ public class ComercioController {
         comercioService.modificarComercio(comercioDTO);
 
     }
-    /*@DeleteMapping ("/{codigoComercio}")
+    @DeleteMapping ("/{codigoComercio}")
     public void deleteComercio(@PathVariable Integer codigoComercio){
-        comercioService.deleteComercioById(codigoComercio);
-    }*/
+        comercioService.eliminarComercio(codigoComercio);
+    }
 }

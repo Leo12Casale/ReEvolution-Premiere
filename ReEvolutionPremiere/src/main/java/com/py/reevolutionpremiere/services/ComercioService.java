@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -46,8 +47,9 @@ public class ComercioService {
     }
 
     public List<ComercioDTO> getComercios() {
-        return comercioRepository.findAll()
-                .stream()
+        List<ComercioEntidad> comercioEntidad = comercioRepository.findAll();
+        return comercioEntidad.stream()
+                .filter(comercio -> !comercio.getBorrado())
                 .map(comercioDTOMapper)
                 .toList();
     }
@@ -115,5 +117,12 @@ public class ComercioService {
         newComercio(comercioDTO);
     }
 
+    public void eliminarComercio(Integer codigoComercio){
+        ComercioEntidad comercioEntidad = comercioRepository.findById(codigoComercio).orElse(null);
+        if (comercioEntidad != null) {
+            comercioEntidad.setBorrado(true);
+            comercioRepository.save(comercioEntidad);
+        }
 
+    }
 }
