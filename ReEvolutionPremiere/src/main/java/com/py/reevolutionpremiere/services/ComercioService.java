@@ -2,10 +2,7 @@ package com.py.reevolutionpremiere.services;
 
 import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTO;
 import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTOMapper;
-import com.py.reevolutionpremiere.entities.ComercioCategoriaEntidad;
-import com.py.reevolutionpremiere.entities.ComercioDueñoEntidad;
-import com.py.reevolutionpremiere.entities.ComercioEntidad;
-import com.py.reevolutionpremiere.entities.ComercioRepresentanteEntidad;
+import com.py.reevolutionpremiere.entities.*;
 import com.py.reevolutionpremiere.entities.repositories.ComercioCategoriaRepository;
 import com.py.reevolutionpremiere.entities.repositories.ComercioDueñoRepository;
 import com.py.reevolutionpremiere.entities.repositories.ComercioRepository;
@@ -119,9 +116,11 @@ public class ComercioService {
 
     public void eliminarComercio(Integer codigoComercio){
         ComercioEntidad comercioEntidad = comercioRepository.findById(codigoComercio).orElse(null);
-        if (comercioEntidad != null) {
+        if (comercioEntidad != null && comercioEntidad.getImporteConsumos() == 0){
+            int existenpagada = comercioRepository.deleteIfNoUnpaidFacturas(codigoComercio);
+            if (existenpagada == 0){
             comercioEntidad.setBorrado(true);
-            comercioRepository.save(comercioEntidad);
+            comercioRepository.save(comercioEntidad);}
         }
 
     }
