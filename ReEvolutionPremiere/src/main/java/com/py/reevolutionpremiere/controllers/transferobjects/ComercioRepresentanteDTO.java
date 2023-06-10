@@ -4,7 +4,6 @@ public record ComercioRepresentanteDTO(
         String nombre,
         String apellido,
         String email,
-        String telefono,
-        String puesto
+        String telefono
 ) {
 }

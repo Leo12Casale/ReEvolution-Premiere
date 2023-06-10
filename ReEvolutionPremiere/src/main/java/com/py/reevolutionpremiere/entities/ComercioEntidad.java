@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+import org.springframework.context.annotation.EnableMBeanExport;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,6 +32,9 @@ public class ComercioEntidad {
     @Column(name = "cuit", nullable = false, length = 13)
     private String cuit;
     @Basic
+    @Column(name = "ingresos_brutos", nullable = false, length = 45)
+    private String ingresosBrutos;
+    @Basic
     @Column(name = "condicion_iva", nullable = false, length = 30)
     private String condicionIva;
     @Basic
@@ -42,30 +46,6 @@ public class ComercioEntidad {
     @Basic
     @Column(name = "dia_cobro", nullable = false)
     private Integer diaCobro;
-    @Basic
-    @Column(name = "telefono", nullable = false, length = 25)
-    private String telefono;
-    @Basic
-    @Column(name = "email", nullable = false, length = 60)
-    private String email;
-    @Basic
-    @Column(name = "direccion", nullable = false, length = 60)
-    private String direccion;
-    @Basic
-    @Column(name = "localidad", nullable = false, length = 45)
-    private String localidad;
-    @Basic
-    @Column(name = "provincia", nullable = false, length = 45)
-    private String provincia;
-    @Basic
-    @Column(name = "codigo_postal", nullable = false)
-    private Integer codigoPostal;
-    @Basic
-    @Column(name = "observaciones", nullable = false, length = 100)
-    private String observaciones;
-    @Basic
-    @Column(name = "borrado", nullable = false)
-    private Boolean borrado;
     @Type(JsonType.class)
     @Column(name = "comisiones_por_cuota", columnDefinition = "json")
     private Map<Integer, Double> comisionesPorCuota = new HashMap<>();
@@ -73,17 +53,14 @@ public class ComercioEntidad {
     @Column(name = "id_categoria", nullable = false, insertable = false, updatable = false)
     private Integer idCategoria;
     @Basic
-    @Column(name = "id_dueño", nullable = false, insertable = false, updatable = false)
-    private Integer idDueño;
-    @Basic
     @Column(name = "id_representante", nullable = true, insertable = false, updatable = false)
     private Integer idRepresentante;
+    @Basic
+    @Column(name = "id_domicilio", nullable = true, insertable = false, updatable = false)
+    private Integer idDomicilio;
     @ManyToOne
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", nullable = false,updatable = false)
     private ComercioCategoriaEntidad categoriaComercioByIdCategoria;
-    @ManyToOne
-    @JoinColumn(name = "id_dueño", referencedColumnName = "ID", nullable = false, updatable = false)
-    private ComercioDueñoEntidad comercioDueñoByIdDueño;
     @ManyToOne
     @JoinColumn(name = "id_representante", referencedColumnName = "ID", updatable = false)
     private ComercioRepresentanteEntidad comercioRepresentanteByIdRepresentante;
@@ -91,4 +68,7 @@ public class ComercioEntidad {
     private Collection<CuponEntidad> cuponsByCodigoComercio;
     @OneToMany(mappedBy = "comercioByIdComercio")
     private Collection<FacturaComercioEntidad> facturaComerciosByCodigoComercio;
+    @OneToOne
+    @JoinColumn(name = "id_domicilio", referencedColumnName = "id")
+    private DomicilioEntidad domicilioEntidad;
 }

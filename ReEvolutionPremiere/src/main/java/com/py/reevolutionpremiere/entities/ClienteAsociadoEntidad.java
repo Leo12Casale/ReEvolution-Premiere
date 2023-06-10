@@ -33,26 +33,11 @@ public class ClienteAsociadoEntidad {
     @Column(name = "email", nullable = false, length = 45)
     private String email;
     @Basic
-    @Column(name = "direccion", nullable = false, length = 45)
-    private String direccion;
-    @Basic
-    @Column(name = "localidad", nullable = false, length = 45)
-    private String localidad;
-    @Basic
-    @Column(name = "provincia", nullable = false, length = 45)
-    private String provincia;
-    @Basic
-    @Column(name = "codigo_postal", nullable = false)
-    private Integer codigoPostal;
-    @Basic
     @Column(name = "observaciones", nullable = false, length = 45)
     private String observaciones;
     @Basic
     @Column(name = "dni_garante", nullable = true, insertable=false, updatable=false)
     private Integer dniGarante;
-    @Basic
-    @Column(name = "borrado", nullable = false)
-    private Boolean borrado;
     @OneToMany(mappedBy = "clienteAsociadoByCodigoClienteAsociadoTitular")
     private Collection<ClienteAsociadoAdicionalEntidad> adicionalsByCodigoUsuario;
     @ManyToOne
@@ -68,4 +53,7 @@ public class ClienteAsociadoEntidad {
     private Collection<FacturaClienteAsociadoEntidad> facturaClienteAsociadosByCodigoUsuario;
     @OneToMany(mappedBy = "clienteAsociadoByCodigoUsuario")
     private Collection<MovimientoEntidad> movimientosByCodigoUsuario;
+    @OneToOne
+    @JoinColumn(name = "id_domicilio", referencedColumnName = "id")
+    private DomicilioEntidad domicilioEntidad;
 }

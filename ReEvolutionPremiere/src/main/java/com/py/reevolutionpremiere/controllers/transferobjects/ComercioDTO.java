@@ -8,20 +8,12 @@ public record ComercioDTO(
         String razonSocial,
         String nombreFantasia,
         String cuit,
+        String ingresosBrutos,
         String condicionIva,
-        Double importeConsumos,
-        Double importeComisiones,
         Integer diaCobro,
-        String telefono,
-        String direccion,
-        String localidad,
-        String email,
-        String provincia,
-        Integer codigoPostal,
-        String observaciones,
+        DomicilioDTO domicilio,
         Map<Integer, Double> comisiones,
         String categoria,
-        ComercioDueñoDTO dueño,
         ComercioRepresentanteDTO representante
 ) {
 

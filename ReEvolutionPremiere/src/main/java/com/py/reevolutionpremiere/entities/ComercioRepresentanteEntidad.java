@@ -29,9 +29,6 @@ public class ComercioRepresentanteEntidad {
     @Basic
     @Column(name = "telefono", nullable = true, length = 45)
     private String telefono;
-    @Basic
-    @Column(name = "puesto", nullable = true, length = 45)
-    private String puesto;
     @OneToMany(mappedBy = "comercioRepresentanteByIdRepresentante")
     private Collection<ComercioEntidad> comerciosById;
 }

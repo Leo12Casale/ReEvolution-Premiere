@@ -30,20 +30,14 @@ public class ClienteAsociadoGaranteEntidad {
     @Column(name = "email", nullable = false, length = 60)
     private String email;
     @Basic
-    @Column(name = "direccion", nullable = false, length = 60)
-    private String direccion;
+    @Column(name = "id_domicilio", nullable = true, insertable = false, updatable = false)
+    private Integer idDomicilio;
     @Basic
-    @Column(name = "localidad", nullable = false, length = 45)
-    private String localidad;
-    @Basic
-    @Column(name = "provincia", nullable = false, length = 45)
-    private String provincia;
-    @Basic
-    @Column(name = "codigo_postal", nullable = false)
-    private Integer codigoPostal;
-    @Basic
-    @Column(name = "borrado", nullable = false)
-    private Boolean borrado;
+    @Column(name = "codigo_cliente_asociado_titular", nullable = true, insertable = false, updatable = false)
+    private Integer codigoClienteAsociado;
     @OneToMany(mappedBy = "garanteByDniGarante")
     private Collection<ClienteAsociadoEntidad> clienteAsociadosByDni;
+    @OneToOne
+    @JoinColumn(name = "id_domicilio", referencedColumnName = "id")
+    private DomicilioEntidad domicilioEntidad;
 }

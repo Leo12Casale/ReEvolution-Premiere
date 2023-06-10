@@ -14,8 +14,4 @@ import java.util.List;
 
 @Repository
 public interface ComercioRepository extends JpaRepository<ComercioEntidad,Integer> {
-    @Query("DELETE FROM ComercioEntidad c WHERE c.codigoComercio = :id AND NOT EXISTS (SELECT fc FROM FacturaComercioEntidad fc WHERE fc.comercioByIdComercio = c AND fc.pagada = false)")
-    @Modifying
-    @Transactional
-    int  deleteIfNoUnpaidFacturas(@Param("id") Integer id);
 }

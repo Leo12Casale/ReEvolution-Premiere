@@ -30,26 +30,17 @@ public class ClienteAsociadoAdicionalEntidad {
     @Column(name = "email", nullable = false, length = 60)
     private String email;
     @Basic
-    @Column(name = "direccion", nullable = false, length = 60)
-    private String direccion;
-    @Basic
-    @Column(name = "localidad", nullable = false, length = 45)
-    private String localidad;
-    @Basic
-    @Column(name = "provincia", nullable = false, length = 45)
-    private String CuponEntidad;
-    @Basic
-    @Column(name = "codigo_postal", nullable = true)
-    private Integer codigoPostal;
+    @Column(name = "id_domicilio", nullable = true, insertable = false, updatable = false)
+    private Integer idDomicilio;
     @Basic
     @Column(name = "codigo_cliente_asociado_titular", nullable = false, insertable=false, updatable=false)
     private Integer codigoClienteAsociadoTitular;
-    @Basic
-    @Column(name = "borrado", nullable = false)
-    private Boolean borrado;
     @ManyToOne
     @JoinColumn(name = "codigo_cliente_asociado_titular", referencedColumnName = "codigo_usuario", nullable = false)
     private ClienteAsociadoEntidad clienteAsociadoByCodigoClienteAsociadoTitular;
     @OneToMany(mappedBy = "adicionalByDniAdicional")
     private Collection<CuponEntidad> cuponsByDni;
+    @OneToOne
+    @JoinColumn(name = "id_domicilio", referencedColumnName = "id")
+    private DomicilioEntidad domicilioEntidad;
 }

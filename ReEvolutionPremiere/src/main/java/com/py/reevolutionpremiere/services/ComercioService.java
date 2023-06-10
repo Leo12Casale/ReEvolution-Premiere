@@ -3,37 +3,36 @@ package com.py.reevolutionpremiere.services;
 import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTO;
 import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTOMapper;
 import com.py.reevolutionpremiere.entities.*;
-import com.py.reevolutionpremiere.entities.repositories.ComercioCategoriaRepository;
-import com.py.reevolutionpremiere.entities.repositories.ComercioDueñoRepository;
-import com.py.reevolutionpremiere.entities.repositories.ComercioRepository;
-import com.py.reevolutionpremiere.entities.repositories.ComercioRepresentanteRepository;
+import com.py.reevolutionpremiere.entities.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class ComercioService {
     private final ComercioRepository comercioRepository;
     private final ComercioCategoriaRepository comercioCategoriaRepository;
-    private final ComercioDueñoRepository comercioDueñoRepository;
     private final ComercioRepresentanteRepository comercioRepresentanteRepository;
+    private final FacturaComercioRepository facturaComercioRepository;
+    private final DomicilioRepository domicilioRepository;
     private final ComercioDTOMapper comercioDTOMapper;
 
 
     @Autowired
     public ComercioService(ComercioRepository comercioRepository,
                            ComercioCategoriaRepository comercioCategoriaRepository,
-                           ComercioDueñoRepository comercioDueñoRepository,
                            ComercioRepresentanteRepository comercioRepresentanteRepository,
+                           FacturaComercioRepository facturaComercioRepository,
+                           DomicilioRepository domicilioRepository,
                            ComercioDTOMapper comercioDTOMapper)
     {
         this.comercioRepository = comercioRepository;
         this.comercioCategoriaRepository = comercioCategoriaRepository;
-        this.comercioDueñoRepository = comercioDueñoRepository;
         this.comercioRepresentanteRepository = comercioRepresentanteRepository;
+        this.facturaComercioRepository = facturaComercioRepository;
+        this.domicilioRepository = domicilioRepository;
         this.comercioDTOMapper = comercioDTOMapper;
     }
 
@@ -46,7 +45,6 @@ public class ComercioService {
     public List<ComercioDTO> getComercios() {
         List<ComercioEntidad> comercioEntidad = comercioRepository.findAll();
         return comercioEntidad.stream()
-                .filter(comercio -> !comercio.getBorrado())
                 .map(comercioDTOMapper)
                 .toList();
     }
@@ -54,18 +52,6 @@ public class ComercioService {
     public void newComercio(ComercioDTO comercioDTO) {
         //Traer la entidad Categoria
         Optional<ComercioCategoriaEntidad> categoriaEntidad = Optional.ofNullable(comercioCategoriaRepository.findByNombreCategoria(comercioDTO.categoria()));
-
-        //Crear la entidad Dueño
-        ComercioDueñoEntidad dueñoEntidad = new ComercioDueñoEntidad(
-                null,
-                comercioDTO.dueño().nombre(),
-                comercioDTO.dueño().apellido(),
-                comercioDTO.dueño().email(),
-                comercioDTO.dueño().telefono(),
-                null
-        );
-        comercioDueñoRepository.save(dueñoEntidad);
-
         //Crear la entidad representante
         ComercioRepresentanteEntidad representanteEntidad = null;
         if(comercioDTO.representante() != null){
@@ -75,38 +61,48 @@ public class ComercioService {
                     comercioDTO.representante().apellido(),
                     comercioDTO.representante().email(),
                     comercioDTO.representante().telefono(),
-                    comercioDTO.representante().puesto(),
                     null
             );
-            comercioRepresentanteRepository.save(representanteEntidad);
         }
+        //Crear la entidad domicilio
+        DomicilioEntidad domicilioEntidad = null;
+        if(comercioDTO.domicilio() != null) {
+            domicilioEntidad = new DomicilioEntidad(
+                    null,
+                    comercioDTO.domicilio().provincia(),
+                    comercioDTO.domicilio().localidad(),
+                    comercioDTO.domicilio().calle(),
+                    comercioDTO.domicilio().numeroCalle(),
+                    comercioDTO.domicilio().codigoPostal(),
+                    comercioDTO.domicilio().pisoDepto(),
+                    comercioDTO.domicilio().numeroDepto(),
+                    comercioDTO.domicilio().observaciones(),
+                    null
+            );
+        }
+        //Crear la entidad comercio finalmente
         ComercioEntidad comercioEntidad = new ComercioEntidad(
                 comercioDTO.codigoComercio(),
                 comercioDTO.razonSocial(),
                 comercioDTO.nombreFantasia(),
                 comercioDTO.cuit(),
+                comercioDTO.ingresosBrutos(),
                 comercioDTO.condicionIva(),
-                comercioDTO.importeConsumos(),
-                comercioDTO.importeComisiones(),
+                0.0,
+                0.0,
                 comercioDTO.diaCobro(),
-                comercioDTO.telefono(),
-                comercioDTO.email(),
-                comercioDTO.direccion(),
-                comercioDTO.localidad(),
-                comercioDTO.provincia(),
-                comercioDTO.codigoPostal(),
-                comercioDTO.observaciones(),
-                false,
                 comercioDTO.comisiones(),
                 null,
                 null,
                 null,
                 categoriaEntidad.get(),
-                dueñoEntidad,
                 representanteEntidad,
                 null,
-                null
+                null,
+                domicilioEntidad
         );
+        comercioRepresentanteRepository.save(representanteEntidad);
+        domicilioRepository.save(domicilioEntidad);
         comercioRepository.save(comercioEntidad);
     }
 
@@ -116,12 +112,12 @@ public class ComercioService {
 
     public void eliminarComercio(Integer codigoComercio){
         ComercioEntidad comercioEntidad = comercioRepository.findById(codigoComercio).orElse(null);
-        if (comercioEntidad != null && comercioEntidad.getImporteConsumos() == 0){
-            int existenpagada = comercioRepository.deleteIfNoUnpaidFacturas(codigoComercio);
-            if (existenpagada == 0){
-            comercioEntidad.setBorrado(true);
-            comercioRepository.save(comercioEntidad);}
+        //Si no tiene consumos
+        if (comercioEntidad != null && comercioEntidad.getImporteConsumos() == 0) {
+            //Si no tiene facturas
+            List<FacturaComercioEntidad> facturaComercioEntidad = (List<FacturaComercioEntidad>) facturaComercioRepository.findAllByIdComercio(codigoComercio);
+            if (comercioEntidad.getFacturaComerciosByCodigoComercio() != null)
+                comercioRepository.delete(comercioEntidad);
         }
-
     }
 }

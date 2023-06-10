@@ -16,33 +16,28 @@ public class ComercioDTOMapper implements Function<ComercioEntidad, ComercioDTO>
                 comercioEntidad.getRazonSocial(),
                 comercioEntidad.getNombreFantasia(),
                 comercioEntidad.getCuit(),
+                comercioEntidad.getIngresosBrutos(),
                 comercioEntidad.getCondicionIva(),
-                comercioEntidad.getImporteConsumos(),
-                comercioEntidad.getImporteComisiones(),
                 comercioEntidad.getDiaCobro(),
-                comercioEntidad.getTelefono(),
-                comercioEntidad.getEmail(),
-                comercioEntidad.getDireccion(),
-                comercioEntidad.getLocalidad(),
-                comercioEntidad.getProvincia(),
-                comercioEntidad.getCodigoPostal(),
-                comercioEntidad.getObservaciones(),
+                comercioEntidad.getDomicilioEntidad() == null ? null :
+                        new DomicilioDTO(
+                                comercioEntidad.getDomicilioEntidad().getProvincia(),
+                                comercioEntidad.getDomicilioEntidad().getLocalidad(),
+                                comercioEntidad.getDomicilioEntidad().getCalle(),
+                                comercioEntidad.getDomicilioEntidad().getNumeroCalle(),
+                                comercioEntidad.getDomicilioEntidad().getCodigoPostal(),
+                                comercioEntidad.getDomicilioEntidad().getPisoDepto(),
+                                comercioEntidad.getDomicilioEntidad().getNumeroDepto(),
+                                comercioEntidad.getDomicilioEntidad().getObservaciones()
+                        ),
                 comercioEntidad.getComisionesPorCuota(),
                 comercioEntidad.getCategoriaComercioByIdCategoria().getNombreCategoria(),
-                comercioEntidad.getComercioDueñoByIdDueño() == null ? null :
-                    new ComercioDueñoDTO(
-                            comercioEntidad.getComercioDueñoByIdDueño().getNombre(),
-                            comercioEntidad.getComercioDueñoByIdDueño().getApellido(),
-                            comercioEntidad.getComercioDueñoByIdDueño().getEmail(),
-                            comercioEntidad.getComercioDueñoByIdDueño().getTelefono()
-                ),
                 comercioEntidad.getComercioRepresentanteByIdRepresentante() == null ? null :
                          new ComercioRepresentanteDTO(
                                  comercioEntidad.getComercioRepresentanteByIdRepresentante().getNombre(),
                                  comercioEntidad.getComercioRepresentanteByIdRepresentante().getApellido(),
                                  comercioEntidad.getComercioRepresentanteByIdRepresentante().getEmail(),
-                                 comercioEntidad.getComercioRepresentanteByIdRepresentante().getTelefono(),
-                                 comercioEntidad.getComercioRepresentanteByIdRepresentante().getPuesto()
+                                 comercioEntidad.getComercioRepresentanteByIdRepresentante().getTelefono()
                          )
         );
     }
