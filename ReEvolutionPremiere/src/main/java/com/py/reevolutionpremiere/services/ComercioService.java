@@ -106,8 +106,48 @@ public class ComercioService {
         comercioRepository.save(comercioEntidad);
     }
 
-    public void modificarComercio(ComercioDTO comercioDTO){
-        newComercio(comercioDTO);
+    public boolean modificarComercio(Integer codigoComercio, ComercioDTO comercioDTO){
+        Optional<ComercioEntidad> optionalComercioEntidad = comercioRepository.findById(codigoComercio);
+        if(!optionalComercioEntidad.isPresent())
+            return false;
+        //Traigo objetos a memoria
+        ComercioEntidad comercioEntidad = optionalComercioEntidad.get();
+        DomicilioEntidad domicilioEntidad = comercioEntidad.getDomicilioEntidad();
+        ComercioRepresentanteEntidad comercioRepresentanteEntidad = comercioEntidad.getComercioRepresentanteByIdRepresentante();
+        ComercioCategoriaEntidad categoriaEntidad = comercioCategoriaRepository.findByNombreCategoria(comercioDTO.categoria());
+
+        //Setteo de nuevos valores de domicilio
+        domicilioEntidad.setProvincia(comercioDTO.domicilio().provincia());
+        domicilioEntidad.setLocalidad(comercioDTO.domicilio().localidad());
+        domicilioEntidad.setCalle(comercioDTO.domicilio().calle());
+        domicilioEntidad.setNumeroCalle(comercioDTO.domicilio().numeroCalle());
+        domicilioEntidad.setCodigoPostal(comercioDTO.domicilio().codigoPostal());
+        domicilioEntidad.setPisoDepto(comercioDTO.domicilio().pisoDepto());
+        domicilioEntidad.setNumeroDepto(comercioDTO.domicilio().pisoDepto());
+        domicilioEntidad.setObservaciones(comercioDTO.domicilio().observaciones());
+
+        //Setteo de nuevos valores de representante
+        comercioRepresentanteEntidad.setNombre(comercioDTO.representante().nombre());
+        comercioRepresentanteEntidad.setApellido(comercioDTO.representante().apellido());
+        comercioRepresentanteEntidad.setEmail(comercioDTO.representante().email());
+        comercioRepresentanteEntidad.setTelefono(comercioDTO.representante().telefono());
+
+        //Setteo de nuevos valores de comercios
+        comercioEntidad.setCodigoComercio(comercioDTO.codigoComercio());
+        comercioEntidad.setRazonSocial(comercioDTO.razonSocial());
+        comercioEntidad.setNombreFantasia(comercioDTO.nombreFantasia());
+        comercioEntidad.setCuit(comercioDTO.cuit());
+        comercioEntidad.setIngresosBrutos(comercioDTO.ingresosBrutos());
+        comercioEntidad.setCondicionIva(comercioDTO.condicionIva());
+        comercioEntidad.setDiaCobro(comercioDTO.diaCobro());
+        comercioEntidad.setDomicilioEntidad(domicilioEntidad);
+        comercioEntidad.setComisionesPorCuota(comercioDTO.comisiones());
+        comercioEntidad.setCategoriaComercioByIdCategoria(categoriaEntidad);
+        comercioEntidad.setComercioRepresentanteByIdRepresentante(comercioRepresentanteEntidad);
+        comercioRepresentanteRepository.save(comercioRepresentanteEntidad);
+        domicilioRepository.save(domicilioEntidad);
+        comercioRepository.save(comercioEntidad);
+        return true;
     }
 
     public void eliminarComercio(Integer codigoComercio){

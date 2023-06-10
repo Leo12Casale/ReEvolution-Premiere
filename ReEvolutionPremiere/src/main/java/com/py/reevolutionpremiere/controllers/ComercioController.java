@@ -1,13 +1,12 @@
 package com.py.reevolutionpremiere.controllers;
 
 import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTO;
-import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTOMapper;
-import com.py.reevolutionpremiere.entities.ComercioEntidad;
 import com.py.reevolutionpremiere.services.ComercioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController
@@ -20,7 +19,7 @@ public class ComercioController {
         this.comercioService = comercioService;}
 
     @GetMapping()
-    public List<ComercioDTO> getAllUsers() {
+    public List<ComercioDTO> getAllComercios() {
         return comercioService.getComercios();
     }
 
@@ -37,9 +36,10 @@ public class ComercioController {
     }
 
     @PatchMapping("/{codigoComercio}")
-    public void updateComercio(@PathVariable Integer codigoComercio, @RequestBody ComercioDTO comercioDTO){
-        comercioService.getComercioById(codigoComercio);
-        comercioService.modificarComercio(comercioDTO);
+    public ResponseEntity<String> updateComercio(@PathVariable Integer codigoComercio, @RequestBody ComercioDTO comercioDTO){
+        if(comercioService.modificarComercio(codigoComercio, comercioDTO))
+            return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+        return new ResponseEntity<>(HttpStatusCode.valueOf(400));
     }
 
     @DeleteMapping ("/{codigoComercio}")
