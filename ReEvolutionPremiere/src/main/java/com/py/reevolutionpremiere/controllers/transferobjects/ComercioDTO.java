@@ -16,5 +16,11 @@ public record ComercioDTO(
         String categoria,
         ComercioRepresentanteDTO representante
 ) {
-
+    public record ComercioRepresentanteDTO(
+            String nombre,
+            String apellido,
+            String email,
+            String telefono
+    ) {
+    }
 }

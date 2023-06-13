@@ -6,8 +6,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
 
+/**
+ * Clase que mapea de ComercioEntidad a ComercioDTO
+ */
 @Service
 public class ComercioDTOMapper implements Function<ComercioEntidad, ComercioDTO> {
+
+    /**
+     * Método que convierte la entidad en un registro DTO.
+     * @param comercioEntidad a convertir.
+     * @return registro DTO con el formato del JSON a retornar.
+     */
 
     @Override
     public ComercioDTO apply(ComercioEntidad comercioEntidad) {
@@ -33,7 +42,7 @@ public class ComercioDTOMapper implements Function<ComercioEntidad, ComercioDTO>
                 comercioEntidad.getComisionesPorCuota(),
                 comercioEntidad.getCategoriaComercioByIdCategoria().getNombreCategoria(),
                 comercioEntidad.getComercioRepresentanteByIdRepresentante() == null ? null :
-                         new ComercioRepresentanteDTO(
+                         new ComercioDTO.ComercioRepresentanteDTO(
                                  comercioEntidad.getComercioRepresentanteByIdRepresentante().getNombre(),
                                  comercioEntidad.getComercioRepresentanteByIdRepresentante().getApellido(),
                                  comercioEntidad.getComercioRepresentanteByIdRepresentante().getEmail(),

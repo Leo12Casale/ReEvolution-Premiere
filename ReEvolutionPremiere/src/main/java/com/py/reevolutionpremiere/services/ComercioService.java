@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Clase que se encarga de la lógica de ABMC de comercios.
+ */
 @Service
 public class ComercioService {
     private final ComercioRepository comercioRepository;
@@ -36,12 +39,21 @@ public class ComercioService {
         this.comercioDTOMapper = comercioDTOMapper;
     }
 
+    /**
+     * Consulta un comercio particular desde la BDD.
+     * @param codigoComercio
+     * @return
+     */
     public Optional<ComercioDTO> getComercioById(Integer codigoComercio) {
         return Optional.of(comercioRepository.findById(codigoComercio)
                 .map(comercioDTOMapper)
                 .orElseThrow());
     }
 
+    /**
+     * Consulta todos los comercios desde la BDD.
+     * @return
+     */
     public List<ComercioDTO> getComercios() {
         List<ComercioEntidad> comercioEntidad = comercioRepository.findAll();
         return comercioEntidad.stream()
@@ -49,7 +61,12 @@ public class ComercioService {
                 .toList();
     }
 
+    /**
+     * Creación y llamado a repository para persistir un nuevo comercio.
+     * @param comercioDTO datos del comercio en formato JSON.
+     */
     public void newComercio(ComercioDTO comercioDTO) {
+        //TODO: agg validaciones
         //Traer la entidad Categoria
         Optional<ComercioCategoriaEntidad> categoriaEntidad = Optional.ofNullable(comercioCategoriaRepository.findByNombreCategoria(comercioDTO.categoria()));
         //Crear la entidad representante
@@ -82,7 +99,7 @@ public class ComercioService {
         }
         //Crear la entidad comercio finalmente
         ComercioEntidad comercioEntidad = new ComercioEntidad(
-                comercioDTO.codigoComercio(),
+                null,
                 comercioDTO.razonSocial(),
                 comercioDTO.nombreFantasia(),
                 comercioDTO.cuit(),
@@ -149,6 +166,7 @@ public class ComercioService {
         comercioRepository.save(comercioEntidad);
         return true;
     }
+
 
     public void eliminarComercio(Integer codigoComercio){
         ComercioEntidad comercioEntidad = comercioRepository.findById(codigoComercio).orElse(null);
