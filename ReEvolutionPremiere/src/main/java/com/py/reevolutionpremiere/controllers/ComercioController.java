@@ -2,6 +2,7 @@ package com.py.reevolutionpremiere.controllers;
 
 import com.py.reevolutionpremiere.controllers.transferobjects.ComercioDTO;
 import com.py.reevolutionpremiere.services.ComercioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ public class ComercioController {
      * @param comercioDTO nuevo.
      */
     @PostMapping()
-    public void newComercio(@RequestBody ComercioDTO comercioDTO) {
+    public void newComercio(@Valid @RequestBody ComercioDTO comercioDTO) {
         //TODO: hacer validaciones
         comercioService.newComercio(comercioDTO);
     }

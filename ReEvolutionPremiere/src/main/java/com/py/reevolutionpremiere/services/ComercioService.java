@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional;;
 
 /**
  * Clase que se encarga de la lógica de ABMC de comercios.
@@ -60,7 +60,6 @@ public class ComercioService {
                 .map(comercioDTOMapper)
                 .toList();
     }
-
     /**
      * Creación y llamado a repository para persistir un nuevo comercio.
      * @param comercioDTO datos del comercio en formato JSON.

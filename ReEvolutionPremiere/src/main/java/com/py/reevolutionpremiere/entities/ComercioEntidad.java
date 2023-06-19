@@ -12,13 +12,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "a_comercio")
 public class ComercioEntidad {
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "codigo_comercio", nullable = false)
     private Integer codigoComercio;
