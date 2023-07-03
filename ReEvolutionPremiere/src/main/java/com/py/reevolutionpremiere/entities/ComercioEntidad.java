@@ -57,7 +57,7 @@ public class ComercioEntidad {
     @Column(name = "id_representante", nullable = true, insertable = false, updatable = false)
     private Integer idRepresentante;
     @Basic
-    @Column(name = "id_domicilio", nullable = true, insertable = false, updatable = false)
+    @Column(name = "id_domicilio", nullable = false, insertable = false, updatable = false)
     private Integer idDomicilio;
     @ManyToOne
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", nullable = false,updatable = false)
@@ -70,6 +70,6 @@ public class ComercioEntidad {
     @OneToMany(mappedBy = "comercioByIdComercio")
     private Collection<FacturaComercioEntidad> facturaComerciosByCodigoComercio;
     @OneToOne
-    @JoinColumn(name = "id_domicilio", referencedColumnName = "id")
+    @JoinColumn(name = "id_domicilio", referencedColumnName = "id", nullable = false)
     private DomicilioEntidad domicilioEntidad;
 }

@@ -2,12 +2,15 @@ package com.py.reevolutionpremiere.controllers.transferobjects;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record DomicilioDTO(
 
+        @NotNull(message = "Provincia nula.")
         @NotBlank(message = "Provincia vacía.")
         String provincia,
 
+        @NotNull(message = "Localidad nula.")
         @NotBlank(message = "Localidad vacía.")
         String localidad,
 

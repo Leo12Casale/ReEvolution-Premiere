@@ -1,6 +1,7 @@
 package com.py.reevolutionpremiere.controllers.transferobjects;
 
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 import java.util.Map;
@@ -31,7 +32,7 @@ public record ComercioDTO(
         @Max(value = 31, message = "Día de cobro mayor a 31.")
         Integer diaCobro,
 
-        @NotNull(message = "Domicilio nulo.")
+        @Valid
         DomicilioDTO domicilio,
         @NotEmpty(message = "Lista de comisiones vacía.")
         Map<Integer, Double> comisiones,
@@ -39,6 +40,7 @@ public record ComercioDTO(
         @NotNull(message = "Categoría nula.")
         @NotBlank(message = "Categoría vacía.")
         String categoria,
+        @Valid
         ComercioRepresentanteDTO representante
 ) {
     public record ComercioRepresentanteDTO(

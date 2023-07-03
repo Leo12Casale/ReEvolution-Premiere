@@ -63,8 +63,9 @@ public class ComercioService {
     /**
      * Creación y llamado a repository para persistir un nuevo comercio.
      * @param comercioDTO datos del comercio en formato JSON.
+     * @return
      */
-    public void newComercio(ComercioDTO comercioDTO) {
+    public ComercioDTO newComercio(ComercioDTO comercioDTO) {
         //TODO: agg validaciones
         //Traer la entidad Categoria
         Optional<ComercioCategoriaEntidad> categoriaEntidad = Optional.ofNullable(comercioCategoriaRepository.findByNombreCategoria(comercioDTO.categoria()));
@@ -120,6 +121,7 @@ public class ComercioService {
         comercioRepresentanteRepository.save(representanteEntidad);
         domicilioRepository.save(domicilioEntidad);
         comercioRepository.save(comercioEntidad);
+        return comercioDTO;
     }
 
     public boolean modificarComercio(Integer codigoComercio, ComercioDTO comercioDTO){
